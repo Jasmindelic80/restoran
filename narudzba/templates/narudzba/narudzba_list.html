@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista narudžbi</title>
+</head>
+<body>
+    <h1>Lista narudžbi</h1>
+
+    <a href="{% url 'narudzba_create' %}">Dodaj novu narudžbu</a>
+
+    <ul>
+        {% for narudzba in narudzbe %}
+            <li>
+                <a href="{% url 'narudzba_detail' narudzba.id %}">
+                    Narudžba #{{ narudzba.id }} — {{ narudzba.datum }}
+                </a>
+                <a href="{% url 'narudzba_update' narudzba.id %}">[izmeni]</a>
+                <a href="{% url 'narudzba_delete' narudzba.id %}">[obriši]</a>
+            </li>
+        {% empty %}
+            <li>Nema nijedne narudžbe.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'dashboard' %}">Nazad na dashboard</a>
+</body>
+</html>

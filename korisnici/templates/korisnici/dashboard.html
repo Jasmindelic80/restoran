@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dobrodošli, {{ user.username }}</h1>
+    <p>Vaša uloga: {{ user.uloga }}</p>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'profil' %}">Profil</a></li>
+            <li><a href="{% url 'meni_list' %}">Meni</a></li>
+            <li><a href="{% url 'narudzba_list' %}">Narudžbe</a></li>
+            <li><a href="{% url 'stolovi_list' %}">Stolovi</a></li>
+            <li><a href="{% url 'logout' %}">Odjavi se</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lista menija</title>
+</head>
+<body>
+    <h1>Lista menija</h1>
+
+    <a href="{% url 'stavka_create' %}">Dodaj novu stavku</a>
+
+    <ul>
+        {% for stavka in stavke %}
+            <li>
+                <a href="{% url 'stavka_detail' stavka.id %}">{{ stavka.naziv }}</a>
+                — {{ stavka.cijena }} EUR
+                <a href="{% url 'stavka_update' stavka.id %}">[izmjeni]</a>
+                <a href="{% url 'stavka_delete' stavka.id %}">[obriši]</a>
+            </li>
+        {% empty %}
+            <li>Trenutno nema stavki u meniju.</li>
+        {% endfor %}
+    </ul>
+
+     <a href="{% url 'dashboard' %}">Nazad na dashboard</a>
+</body>
+</html>
+
+

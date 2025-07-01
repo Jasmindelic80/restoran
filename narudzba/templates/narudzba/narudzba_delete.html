@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Obriši narudžbu</title>
+</head>
+<body>
+    <h1>Da li ste sigurni da želite da obrišete narudžbu #{{ narudzba.id }}?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Da, obriši</button>
+        <a href="{% url 'narudzba_list' %}">Ne, nazad</a>
+    </form>
+</body>
+</html>

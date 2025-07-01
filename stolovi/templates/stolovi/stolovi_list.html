@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista stolova</title>
+</head>
+<body>
+    <h1>Lista stolova</h1>
+
+    <a href="{% url 'sto_create' %}">Dodaj novi sto</a>
+
+    <ul>
+        {% for sto in stolovi %}
+            <li>
+                <a href="{% url 'sto_detail' sto.id %}">
+                    Sto #{{ sto.id }} — {{ sto.naziv }}
+                </a>
+                <a href="{% url 'sto_update' sto.id %}">[Izmeni]</a>
+                <a href="{% url 'sto_delete' sto.id %}">[Obriši]</a>
+            </li>
+        {% empty %}
+            <li>Nema unetih stolova.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'dashboard' %}">Nazad na dashboard</a>
+</body>
+</html>

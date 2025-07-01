@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalji narudžbe</title>
+</head>
+<body>
+    <h1>Detalji narudžbe #{{ narudzba.id }}</h1>
+
+    <p><strong>Datum:</strong> {{ narudzba.datum }}</p>
+    <p><strong>Stavke:</strong></p>
+    <ul>
+        {% for stavka in narudzba.stavke.all %}
+            <li>{{ stavka.naziv }} — {{ stavka.cijena }} EUR</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'narudzba_list' %}">Nazad na listu</a>
+</body>
+</html>

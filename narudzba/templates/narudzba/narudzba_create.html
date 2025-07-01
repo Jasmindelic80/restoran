@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova narudžba</title>
+</head>
+<body>
+    <h1>Dodaj novu narudžbu</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sačuvaj</button>
+    </form>
+
+    <a href="{% url 'narudzba_list' %}">Nazad</a>
+</body>
+</html>

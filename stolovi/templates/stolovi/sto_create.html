@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj novi sto</title>
+</head>
+<body>
+    <h1>Dodaj novi sto</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sačuvaj</button>
+    </form>
+
+    <a href="{% url 'stolovi_list' %}">Otkaži</a>
+</body>
+</html>

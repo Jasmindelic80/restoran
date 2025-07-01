@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalji stavke: {{ stavka.naziv }}</title>
+</head>
+<body>
+    <h1>{{ stavka.naziv }}</h1>
+    <p><strong>Opis:</strong> {{ stavka.opis }}</p>
+    <p><strong>Cijena:</strong> {{ stavka.cijena }} EUR</p>
+
+    <a href="{% url 'meni_list' %}">Nazad na listu menija</a>
+</body>
+</html>
+
+
+<a href="{% url 'narudzba_list' %}">Nazad na listu</a>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalji stola</title>
+</head>
+<body>
+    <h1>Detalji stola #{{ sto.id }}</h1>
+
+    <p><strong>Naziv:</strong> {{ sto.naziv }}</p>
+    <p><strong>Broj mesta:</strong> {{ sto.broj_mesta }}</p>
+
+    <a href="{% url 'stolovi_list' %}">Nazad</a>
+</body>
+</html>
