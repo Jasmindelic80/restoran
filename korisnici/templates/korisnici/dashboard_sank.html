@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Šank – Narudžbe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .nav {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #007bff;
+            margin-left: 15px;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+        button {
+            padding: 6px 12px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        span.status {
+            font-weight: bold;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <span>Dobrodošli, {{ user.first_name }} {{ user.last_name }} | Uloga: {{ user.profil.get_uloga_display }}</span>
+        <a href="{% url 'logout' %}">Odjavi se</a>
+    </div>
+
+    <h1>Pregled narudžbi za šank</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Sto</th>
+                <th>Konobar</th>
+                <th>Datum</th>
+                <th>Stavke</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for narudzba in narudzbe %}
+                <tr>
+                    <td>{{ narudzba.id }}</td>
+                    <td>{{ narudzba.sto_broj }}</td>
+                    <td>{{ narudzba.konobar.get_full_name|default:narudzba.konobar.username }}</td>
+                    <td>{{ narudzba.datum|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        <ul>
+                            {% for stavka in narudzba.stavke.all %}
+                                <li>{{ stavka.kolicina }}× {{ stavka.stavka.naziv }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        {% if narudzba.status == 'na_sanku' %}
+                            <form method="post" action="{% url 'potvrdi_narudzbu' narudzba.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Označi spremno</button>
+                            </form>
+                        {% else %}
+                            <span class="status">Spremna</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align:center;">Nema narudžbi za prikaz.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

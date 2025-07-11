@@ -3,19 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #0366d6;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Dobrodošli, {{ user.username }}</h1>
-    <p>Vaša uloga: {{ user.uloga }}</p>
+    <h1>Dobrodošli, {{ user.first_name }} {{ user.last_name }}</h1>
+    <p>Vaša uloga: {{ user.profil.uloga }}</p>
 
     <nav>
         <ul>
             <li><a href="{% url 'profil' %}">Profil</a></li>
-            <li><a href="{% url 'meni_list' %}">Meni</a></li>
-            <li><a href="{% url 'narudzba_list' %}">Narudžbe</a></li>
-            <li><a href="{% url 'stolovi_list' %}">Stolovi</a></li>
+
+            {% if user.profil.uloga == 'sef' %}
+                <li><a href="{% url 'stanje_robe' %}">Stanje robe</a><li>
+                <li><a href="{% url 'meni_list' %}">Meni (upravljanje)</a></li>
+
+                <li><a href="{% url 'izvjestaj_stanje_roba' %}">Izvještaj stanja robe</a><li>
+
+                <li><a href="{% url 'izvjestaj' %}">Izvještaj prometa</a><li>
+
+                <li><a href="{% url 'narudzba_list' %}">Sve narudžbe</a></li>
+                <li><a href="{% url 'stolovi_list' %}">Stolovi</a></li>
+                <li><a href="{% url 'register' %}">Dodaj korisnika</a></li>
+            {% elif user.profil.uloga == 'konobar' %}
+                <li><a href="{% url 'narudzba_list' %}">Moje narudžbe</a></li>
+            {% elif user.profil.uloga == 'sank' %}
+                <li><a href="{% url 'narudzba_list' %}">Pregled narudžbi za šank</a></li>
+            {% endif %}
+
             <li><a href="{% url 'logout' %}">Odjavi se</a></li>
         </ul>
     </nav>
+
+    {% if user.profil.uloga == 'sank' %}
+        <h2>Narudžbe za šank</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sto</th>
+                    <th>Datum</th>
+                    <th>Stavke</th>
+                    <th>Status</th>
+                    <th>Akcija</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for narudzba in narudzbe %}
+                <tr>
+                    <td>{{ narudzba.id }}</td>
+                    <td>{{ narudzba.sto_broj }}</td>
+                    <td>{{ narudzba.datum|date:"d.m.Y H:i" }}</td>
+                    <td>
+                        <ul>
+                            {% for stavka in narudzba.stavke.all %}
+                                <li>{{ stavka.kolicina }} x {{ stavka.stavka.naziv }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ narudzba.status|default:"Nije definisan" }}</td>
+                    <td>
+                        <form method="post" action="{% url 'sank_potvrdi' narudzba.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Potvrdi spremnost</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6">Nema narudžbi za šank.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </body>
 </html>

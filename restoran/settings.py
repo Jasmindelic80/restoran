@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'meni',
     'narudzba',
     'stolovi',
+    'lager',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Račun</title>
+</head>
+<body>
+    <h2>Račun br. {{ narudzba.id }}</h2>
+    <p>Datum: {{ narudzba.datum }}</p>
+    <hr>
+    <ul>
+        {% for stavka in stavke %}
+            <li>{{ stavka.kolicina }} x {{ stavka.stavka.naziv }} = {{ stavka.kolicina|floatformat:2 }} x {{ stavka.stavka.cijena }} KM</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <p><strong>Ukupno: {{ ukupno }} KM</strong></p>
+</body>
+</html>

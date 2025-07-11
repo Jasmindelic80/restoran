@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Stanje robe</title>
+</head>
+<body>
+    <h1>Stanje robe</h1>
+    <table border="1">
+        <tr>
+            <th>Naziv</th>
+            <th>Količina</th>
+            <th>Mjera</th>
+        </tr>
+        {% for s in sirovine %}
+        <tr>
+            <td>{{ s.naziv }}</td>
+            <td>{{ s.kolicina }}</td>
+            <td>{{ s.mjerna_jedinica }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'dashboard' %}">Nazad na dashboard</a>
+</body>
+</html>

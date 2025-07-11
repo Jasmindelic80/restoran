@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil šanka</title>
+</head>
+<body>
+    <h1>Narudžbe u pripremi</h1>
+
+    {% if narudzbe %}
+        <ul>
+            {% for n in narudzbe %}
+                <li>
+                    Narudžba #{{ n.id }} - Sto {{ n.sto_broj }} - {{ n.datum|date:"d.m.Y H:i" }}
+                    <form method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="narudzba_id" value="{{ n.id }}">
+                        <button type="submit">Potvrdi kao spremna</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nema narudžbi u pripremi.</p>
+    {% endif %}
+
+    <a href="{% url 'dashboard' %}">Nazad na dashboard</a>
+</body>
+</html>

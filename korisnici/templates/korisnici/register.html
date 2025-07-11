@@ -11,6 +11,15 @@
     {% endif %}
     <form method="post">
         {% csrf_token %}
+
+        <label for="uloga">Uloga:</label><br>
+        <select id="uloga" name="uloga" required>
+            <option value="">--Odaberite ulogu--</option>
+            <option value="sef">Šef</option>
+            <option value="konobar">Konobar</option>
+            <option value="sank">Šank</option>  <!-- NOVO -->
+        </select><br><br>
+
         <label for="username">Korisničko ime:</label><br>
         <input type="text" id="username" name="username" required><br><br>
 
@@ -31,6 +40,8 @@
 
         <button type="submit">Registruj se</button>
     </form>
+
     <p>Već imate nalog? <a href="{% url 'login' %}">Prijavite se</a></p>
 </body>
 </html>
+    <a href="{% url 'dashboard' %}">Nazad na dashboard</a>

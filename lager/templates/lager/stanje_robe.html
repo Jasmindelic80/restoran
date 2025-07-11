@@ -1,0 +1,19 @@
+<h1>Stanje robe</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Dodaj novu sirovinu</button>
+</form>
+
+<h2>Trenutno stanje</h2>
+<ul>
+    {% for sirovina in sirovine %}
+    <li>
+        {{ sirovina.naziv }} — {{ sirovina.kolicina }}
+        <a href="{% url 'edit_sirovina' sirovina.pk %}">Uredi</a>
+    </li>
+    {% empty %}
+    <li>Nema unesenih sirovina</li>
+    {% endfor %}
+</ul>

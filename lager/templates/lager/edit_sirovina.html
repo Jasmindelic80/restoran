@@ -1,0 +1,9 @@
+<h1>Uredi sirovinu: {{ sirovina.naziv }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sačuvaj</button>
+</form>
+
+<a href="{% url 'stanje_robe' %}">Nazad na stanje robe</a>

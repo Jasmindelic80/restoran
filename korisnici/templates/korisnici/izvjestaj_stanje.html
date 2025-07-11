@@ -1,0 +1,29 @@
+<h1>Izvještaj stanja robe - {{ danas }}</h1>
+
+<h2>Dnevna potrošnja sirovina</h2>
+<ul>
+  {% for naziv, kolicina in dnevna_potrosnja.items %}
+    <li>{{ naziv }}: {{ kolicina }}</li>
+  {% empty %}
+    <li>Nema potrošnje danas</li>
+  {% endfor %}
+</ul>
+
+<h2>Mjesečna potrošnja sirovina</h2>
+<ul>
+  {% for naziv, kolicina in mjesecna_potrosnja.items %}
+    <li>{{ naziv }}: {{ kolicina }}</li>
+  {% empty %}
+    <li>Nema potrošnje ovaj mjesec</li>
+  {% endfor %}
+</ul>
+
+<h2>Trenutno stanje sirovina</h2>
+<ul>
+  {% for sirovina in stanje %}
+    <li>{{ sirovina.naziv }}: {{ sirovina.kolicina }}</li>
+  {% empty %}
+    <li>Nema unesenih sirovina</li>
+  {% endfor %}
+</ul>
+  <a href="{% url 'dashboard' %}">Nazad na dashboard</a>

@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Stavka
 
-# Register your models here.
+@admin.register(Stavka)
+class StavkaAdmin(admin.ModelAdmin):
+    search_fields = ['naziv']

@@ -3,16 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Nova narudžba</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .greske { color: red; margin-bottom: 20px; }
+        button { padding: 10px 20px; margin-top: 20px; }
+        a { display: inline-block; margin-top: 20px; }
+    </style>
 </head>
 <body>
     <h1>Dodaj novu narudžbu</h1>
 
+    {% if greske %}
+        <div class="greske">
+            <strong>Greške:</strong>
+            <ul>
+                {% for greska in greske %}
+                    <li>{{ greska }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Sačuvaj</button>
+
+        <h3>Stavke za narudžbu</h3>
+        <table>
+            <tr>
+                <th>Naziv</th>
+                <th>Cijena</th>
+                <th>Količina</th>
+            </tr>
+            {% for stavka in stavke %}
+            <tr>
+                <td>{{ stavka.naziv }}</td>
+                <td>{{ stavka.cijena }} KM</td>
+                <td>
+                    <input type="number" name="kolicina_{{ stavka.id }}" min="0" value="0" />
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <button type="submit">Sačuvaj narudžbu</button>
     </form>
 
-    <a href="{% url 'narudzba_list' %}">Nazad</a>
+    <a href="{% url 'narudzba_list' %}">⟵ Nazad na listu narudžbi</a>
 </body>
 </html>
