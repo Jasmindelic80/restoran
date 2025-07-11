@@ -6,9 +6,12 @@ from django.shortcuts import get_object_or_404
 
 
 def meni_list(request):
-    stavke = Stavka.objects.all()
-    return render(request, 'meni/meni_list.html', {'stavke': stavke})
-
+    stavke = Stavka.objects.all().order_by('naziv')
+    kategorije = dict(Stavka.KATEGORIJE)  # koristi choices ako ih imaš
+    return render(request, 'meni/meni_list.html', {
+        'stavke': stavke,
+        'kategorije': kategorije
+    })
 
 def stavka_update(request, pk):
     stavka = get_object_or_404(Stavka, pk=pk)
