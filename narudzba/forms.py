@@ -5,10 +5,10 @@ from .models import Narudzba, StavkaNarudzbe
 class NarudzbaForm(forms.ModelForm):
     class Meta:
         model = Narudzba
-        fields = ['sto_broj', 'napomena']
+        fields = ['sto_broj']
         widgets = {
             'sto_broj': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
-            'napomena': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+
         }
 
 class StavkaNarudzbeForm(forms.ModelForm):

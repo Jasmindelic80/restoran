@@ -101,11 +101,15 @@ from .forms import NarudzbaForm
 from .models import StavkaNarudzbe, Narudzba
 from meni.models import Stavka
 from lager.models import Recept
-
+from collections import defaultdict
 
 @login_required
 def narudzba_create(request):
-    sve_stavke = Stavka.objects.all()
+    sve_stavke = Stavka.objects.all().order_by('kategorija', 'naziv')
+    stavke_po_kategoriji = defaultdict(list)
+    for s in sve_stavke:
+        stavke_po_kategoriji[s.kategorija].append(s)
+
 
     if request.method == 'POST':
         form = NarudzbaForm(request.POST)

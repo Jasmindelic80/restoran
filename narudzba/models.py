@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Narudzba(models.Model):
     konobar = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     sto_broj = models.PositiveIntegerField()
-    napomena = models.TextField(blank=True)
     datum = models.DateTimeField(auto_now_add=True)
 
     STATUS_CHOICES = [
