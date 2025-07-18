@@ -10,6 +10,9 @@ urlpatterns = [
     path('<int:pk>/obrisi/', views.narudzba_delete, name='narudzba_delete'),
     path('sank/', sank_view, name='sank'),
     path('narudzba/<int:pk>/izdaj_racun/', views.izdaj_racun, name='izdaj_racun'),
+    path('api/narudzbe/', views.narudzbe_api, name='narudzbe_api'),
+    path('api/narudzbe/create/', views.narudzba_create_api, name='narudzba_create_api'),
+    path('api/narudzbe/<int:pk>/', views.narudzba_detail_api, name='narudzba_detail_api'),
 ]
 
 

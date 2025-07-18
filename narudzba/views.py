@@ -14,6 +14,22 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Narudzba
 from .serializers import NarudzbaSerializer
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+@api_view(['GET'])
+def narudzba_detail_api(request, pk):
+    narudzba = get_object_or_404(Narudzba, pk=pk)
+    serializer = NarudzbaSerializer(narudzba)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def narudzba_create_api(request):
+    serializer = NarudzbaSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def narudzbe_api(request):
