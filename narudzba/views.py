@@ -13,7 +13,7 @@ import io
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Narudzba
-from .serializers import NarudzbaSerializer
+
 from rest_framework.decorators import api_view
 from rest_framework import status
 
