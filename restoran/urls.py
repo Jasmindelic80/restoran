@@ -11,7 +11,7 @@ urlpatterns = [
     path('stolovi/', include('stolovi.urls')),
     path('lager/', include('lager.urls')),
     path('', include('narudzba.urls')),
-
+    path('api/', include('narudzba.api_urls')),
     # Ispravno definiranje token endpointa:
     path('api/auth/token/', drf_views.obtain_auth_token, name='api_token_auth'),
 ]

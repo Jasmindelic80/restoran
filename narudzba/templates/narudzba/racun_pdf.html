@@ -1,40 +1,32 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="hr">
 <head>
-    <meta charset="UTF-8">
-    <style>
-        body { font-family: DejaVu Sans, sans-serif; font-size: 14px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #000; padding: 5px; text-align: left; }
-    </style>
+<meta charset="UTF-8">
 </head>
 <body>
-    <h2>Racun #{{ narudzba.id }}</h2>
-    <p><strong>Sto:</strong> {{ narudzba.sto_broj }}</p>
-    <p><strong>Datum:</strong> {{ narudzba.datum }}</p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Stavka</th>
-                <th>Kolicina</th>
-                <th>Cijena</th>
-                <th>Ukupno</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for stavka in stavke %}
-            <tr>
-                <td>{{ stavka.stavka.naziv }}</td>
-                <td>{{ stavka.kolicina }}</td>
-                <td>{{ stavka.stavka.cijena }} €</td>
-                <td>{{ stavka.kolicina|floatformat:2 }} × {{ stavka.stavka.cijena|floatformat:2 }} = {{ stavka.kolicina|floatformat:2|floatformat|add:"0"|floatformat }} €</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h2>RACUN BR. {{ narudzba.id }}</h2>
+<p>Sto: {{ narudzba.sto_broj }}</p>
 
-    <p><strong>Ukupno za platiti:</strong> {{ ukupno }} €</p>
-    <p>Hvala na posjeti!</p>
+<table width="100%" border="1" cellspacing="0" cellpadding="4">
+<tr>
+    <th>Naziv</th>
+    <th>Kolicina</th>
+    <th>Cijena</th>
+    <th>Ukupno</th>
+</tr>
+
+{% for s in stavke %}
+<tr>
+    <td>{{ s.stavka.naziv }}</td>
+    <td>{{ s.kolicina }}</td>
+    <td>{{ s.stavka.cijena }} €</td>
+    <td>{{ s.stavka.cijena|floatformat:2 }} × {{ s.kolicina }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h3>UKUPNO: {{ ukupno|floatformat:2 }} €</h3>
+
 </body>
 </html>
