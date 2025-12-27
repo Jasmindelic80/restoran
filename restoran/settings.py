@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'narudzba',
     'stolovi',
     'lager',
-    'django-extensions'
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
