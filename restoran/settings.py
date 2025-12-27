@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'meni',
     'narudzba',
     'stolovi',
-    "django_extensions",
+
     'lager',
 ]
 
