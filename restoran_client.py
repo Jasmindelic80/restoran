@@ -161,17 +161,17 @@ def issue_receipt():
             auth=auth
         )
         r.raise_for_status()
-
-        # Opcionalno: obriši sve stavke narudžbe u bazi da ne ostaju
-        r2 = requests.get(BASE_URL + f"stavke_narudzbe/?narudzba={order_id}", auth=auth)
-        for stavka in r2.json():
-            requests.delete(BASE_URL + f"stavke_narudzbe/{stavka['id']}/", auth=auth)
-
         # Preuzmi PDF
         pdf_resp = requests.get(
             f"http://127.0.0.1:8000/narudzba/{order_id}/izdaj_racun/",
             auth=auth
         )
+        # Opcionalno: obriši sve stavke narudžbe u bazi da ne ostaju
+        r2 = requests.get(BASE_URL + f"stavke_narudzbe/?narudzba={order_id}", auth=auth)
+        for stavka in r2.json():
+            requests.delete(BASE_URL + f"stavke_narudzbe/{stavka['id']}/", auth=auth)
+
+
 
         if pdf_resp.headers.get('Content-Type') == 'application/pdf':
             filename = f"racun_{order_id}.pdf"
