@@ -36,3 +36,8 @@ def edit_sirovina(request, pk):
         'form': form,
         'sirovina': sirovina,
     })
+
+def lager_list(request):
+    sirovine = Sirovina.objects.all().order_by('naziv')
+    low = sirovine.filter(kolicina__lte=models.F('min_kolicina'))
+    return render(request, 'lager/lager_list.html', {'sirovine': sirovine, 'low': low})

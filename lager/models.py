@@ -7,6 +7,7 @@ class Sirovina(models.Model):
     naziv = models.CharField(max_length=100)
     jedinica_mjere = models.CharField(max_length=20)
     kolicina = models.FloatField()
+    min_kolicina = models.FloatField(default=0)
 
     def __str__(self):
         return f"{self.naziv} ({self.kolicina} {self.jedinica_mjere})"

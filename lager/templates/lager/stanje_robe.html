@@ -1,4 +1,10 @@
 <h1>Stanje robe</h1>
+{% if low %}
+  <div class="alert alert-warning">
+    <strong>Upozorenje:</strong> Niske zalihe:
+    {% for s in low %} {{ s.naziv }} ({{ s.kolicina }} {{ s.jedinica_mjere }}), {% endfor %}
+  </div>
+{% endif %}
 
 <form method="post">
     {% csrf_token %}

@@ -6,22 +6,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+
 <div class="container mt-4">
     <h1 class="mb-4">Cjenovnik</h1>
 
     <div class="row">
         {% for kat_key, kat_naziv in kategorije.items %}
             <div class="col-md-3">
-                <h4>{{ kat_naziv }}</h4>
+                <h4 class="mb-3">{{ kat_naziv }}</h4>
+
                 <ul class="list-group mb-4">
                     {% for stavka in stavke %}
                         {% if stavka.kategorija == kat_key %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+
                                 <div>
                                     <strong>{{ stavka.naziv }}</strong><br />
-                                    <small>{{ stavka.opis|default:"" }}</small>
+                                    <small class="text-muted">{{ stavka.opis|default:"" }}</small>
                                 </div>
-                                <span>{{ stavka.cijena|floatformat:2 }} EUR</span>
+
+                                <div class="text-end">
+                                    <div>
+                                        <strong>{{ stavka.cijena|floatformat:2 }} EUR</strong>
+                                    </div>
+
+                                    {% if stavka.is_available %}
+                                        <span class="badge bg-success mt-1">Dostupno</span>
+                                        {% if stavka.max_portions != None %}
+                                            <small class="text-muted d-block">
+                                                {{ stavka.max_portions }} porcija
+                                            </small>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge bg-danger mt-1">Nema na lageru</span>
+                                    {% endif %}
+                                </div>
+
                             </li>
                         {% endif %}
                     {% endfor %}
@@ -30,7 +50,10 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'narudzba_list' %}" class="btn btn-primary mt-3">Idi na narudžbe</a>
+    <a href="{% url 'narudzba_list' %}" class="btn btn-primary mt-3">
+        Idi na narudžbe
+    </a>
 </div>
+
 </body>
 </html>

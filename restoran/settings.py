@@ -11,7 +11,7 @@ SECRET_KEY = 'django-insecure-6(i#42lp=l24e0@5$h166%4!j1xx-e0x_#)fv12o_24k)p%5fs
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["newsite-1-awae.onrender.com"]
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -29,9 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'korisnici',
     'meni',
-    'narudzba',
     'stolovi',
-
+    'narudzba.apps.NarudzbaConfig',
     'lager',
 ]
 
@@ -73,10 +72,15 @@ WSGI_APPLICATION = 'restoran.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',
+        'USER': 'postgres',
+        'PASSWORD': 'harmani1980',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -113,8 +117,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -137,3 +145,4 @@ REST_FRAMEWORK = {
     ]
 }
 
+ADMIN_SITE_CSS = False
