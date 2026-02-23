@@ -6,4 +6,4 @@ from .models import Profil
 @receiver(post_save, sender=User)
 def kreiraj_profil(sender, instance, created, **kwargs):
     if created:
-        Profil.objects.create(user=instance, uloga='konobar')
+        Profil.objects.create(user=instance, uloga='sef')
